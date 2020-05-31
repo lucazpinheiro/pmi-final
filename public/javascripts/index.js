@@ -105,14 +105,19 @@ theForm.onsubmit = async (e) => {
   e.preventDefault();
   const x = new FormData(theForm);
 
-  console.log(x.get('name'));
+  console.log({
+    name: x.get('name'),
+  });
 
   // const response = await fetch('/post', {
   //   method: 'POST',
   //   headers: {
   //     'Content-Type': 'application/json',
   //   },
-  //   body: JSON.stringify(new FormData(theForm)),
+  //   body: JSON.stringify({
+  //     name: x.get('name'),
+  //     image: 
+  //   }),
   // });
 
   // const result = await response.json();
