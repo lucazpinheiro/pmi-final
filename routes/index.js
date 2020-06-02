@@ -1,6 +1,10 @@
 const express = require('express');
 
 const router = express.Router();
+const fs = require('fs');
+
+const rawdata = fs.readFileSync('./resources/content.json');
+const resource = JSON.parse(rawdata);
 
 const DataSchema = require('../models/spatialModel');
 
@@ -33,7 +37,7 @@ function layerParser(coords, featureType) {
 
 router.get('/', async (req, res) => {
   try {
-    res.render('index');
+    res.render('index', { content: resource.index });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -41,7 +45,7 @@ router.get('/', async (req, res) => {
 
 router.get('/report', async (req, res) => {
   try {
-    res.render('form.ejs');
+    res.render('form.ejs', { content: resource.form });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -49,7 +53,7 @@ router.get('/report', async (req, res) => {
 
 router.get('/about', async (req, res) => {
   try {
-    res.render('about');
+    res.render('about', { content: resource.about });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

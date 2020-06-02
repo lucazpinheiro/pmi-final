@@ -1,34 +1,42 @@
 /* eslint-disable no-undef */
 
+import { map, baseLayer, drawControl } from './map.js';
+
+let latlng = {};
+
+baseLayer.addTo(map);
+
+map.addControl(drawControl);
+
+map.on(L.Draw.Event.CREATED, (event) => {
+  const { layer } = event;
+
+  latlng = { ...layer._latlng };
+
+  map.addLayer(layer);
+});
+
+
 theForm.onsubmit = async (e) => {
   e.preventDefault();
   const x = new FormData(theForm);
-  // console.log(x.get('typeInput'));
+
   const obj = {
     type: x.get('typeInput'),
     description: x.get('description'),
     image: x.get('imageInput'),
+    date: new Date(),
+    location: latlng,
   };
-  console.log(obj);
-  // console.log(x.get('imageInput'));
-  const blob = new Blob([JSON.stringify(x.get('imageInput'), null, 2)], { type: 'image/*' });
-  // console.log('blob', blob);
+  console.log('obj', obj);
 
-  const reader = new FileReader();
-  reader.addEventListener('loadend', () => {
-    // reader.result contains the contents of blob as a typed array
-    console.log(reader);
-  });
-  reader.readAsArrayBuffer(blob);
-
-  // x.forEach((value, name) => console.log(`${name} = ${value}`)); // key1=value1, then key2=value2 console.log(y, z));
 
   // const response = await fetch('/post', {
   //   method: 'POST',
   //   headers: {
   //     'Content-Type': 'application/json',
   //   },
-  //   body: JSON.stringify(new FormData(theForm)),
+  //   body: JSON.stringify(obj),
   // });
 
   // const result = await response.json();

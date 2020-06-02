@@ -2,39 +2,81 @@
 <html lang="pt-br">
 
 <head>
-  <title>Crowd Source Map</title>
+  <title><%= content.title %></title>
   <meta charset="utf-8">
+
+  <!--leaflet-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""></script>
+  <!--leaflet draw-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css">
 
   <!--bootstrap-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
   integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
+  <style>
+      #map {
+          width: 100%;
+          height: 70vh;
+          border: 1px solid rgb(11, 17, 46);
+          display: inline-block;
+      }
+
+      .button-wrapper {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+  </style>
+
 </head>
 
 <body>
+    
+    <div class="container p-3 my-3 border">
+        <h1><%= content.page %></h1>
+        <div id="map"></div>
+    </div>
     <div class="container">
-        <h1>form</h1>
         <form id="theForm">
             <div class="form-group">
-                <label for="typeInput">Especie</label>
+                <label for="typeInput">Situação</label>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="typeInput" id="typeInputDog" value="dog" checked>
-                  <label class="form-check-label" for="typeInputDog">
-                    Cachorro
-                  </label>
+                    <input class="form-check-input" type="radio" name="statusInput" id="statusInputMissing" value="missing">
+                    <label class="form-check-label" for="typeInputMissing">
+                        Perdi
+                    </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="typeInput" id="typeInputCat" value="gato">
-                  <label class="form-check-label" for="typeInputCat">
-                    Gato
-                  </label>
+                    <input class="form-check-input" type="radio" name="statusInput" id="statusInputReported" value="reported">
+                    <label class="form-check-label" for="typeInputReported">
+                        Animal de rua
+                    </label>
                 </div>
             </div>
 
-            <!-- <div class="form-group">
-                <label for="nameInput">Nome</label>
-                <input type="text" class="form-control" name="surname" id="surnameInput" value="Smith">
-            </div> -->
+            <div class="form-group">
+                <label for="typeInput">Especie</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="typeInput" id="typeInputDog" value="dog">
+                    <label class="form-check-label" for="typeInputDog">
+                        Cachorro
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="typeInput" id="typeInputCat" value="gato">
+                    <label class="form-check-label" for="typeInputCat">
+                        Gato
+                    </label>
+                </div>
+            </div>
 
             <div class="form-group">
                 <label for="descriptionInput">Descrição</label>
@@ -42,64 +84,16 @@
             </div>
 
             <div class="form-group">
-              <label for="exampleFormControlFile1">Example file input</label>
-              <input type="file" class="form-control-file" name="imageInput" id="exampleFormControlFile1" accept="image/*">
+                <label for="exampleFormControlFile1">Example file input</label>
+                <input type="file" class="form-control-file" name="imageInput" id="exampleFormControlFile1" accept="image/*">
             </div>
 
-            <!-- <div class="form-group">
-              <label for="exampleFormControlTextarea1">Example textarea</label>
-              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div> -->
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
     </div>
 </body>
 
 
-<script type="text/javascript" src="javascripts/form.js"></script>
-<!-- <script>
-
-	theForm.onsubmit = async (e) => {
-		e.preventDefault();
-		const x = new FormData(theForm);
-		console.log(x.get('typeInput'));
-		// const obj = {
-		//   type: x.get('typeInput'),
-		//   description: x.get('description'),
-		//   image
-		// };
-
-		// console.log(x.get('imageInput'));
-		// const blob = new Blob([JSON.stringify(x.get('imageInput'), null, 2)], {type : 'image/*'});
-		// console.log('blob', blob);
-
-		const obj = {hello: 'world'};
-		const blob = new Blob([JSON.stringify(obj, null, 2)], {type : 'application/json'});
-		
-		console.log('obj', obj);
-		console.log('blob', blob);
-
-		const reader = new FileReader();
-		reader.addEventListener('loadend', () => {
-		// reader.result contains the contents of blob as a typed array
-		});
-
-		for(let [name, value] of x) {
-			console.log(`${name} = ${value}`); // key1=value1, then key2=value2
-		}
-
-		// const response = await fetch('/post', {
-		//   method: 'POST',
-		//   headers: {
-		//     'Content-Type': 'application/json',
-		//   },
-		//   body: JSON.stringify(new FormData(theForm)),
-		// });
-
-		// const result = await response.json();
-
-		// console.log(result.message);
-	};
-</script>  -->
+<script type="module" defer src="javascripts/form.js"></script>
 
 </html>

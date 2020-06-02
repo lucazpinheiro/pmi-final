@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <title>GEOPET (nome provisorio)</title>
+    <title><%= content.title %><</title>
     <meta charset="utf-8">
 
     <!--leaflet-->
@@ -23,7 +23,14 @@
     <style>
         #map {
             width: 100%;
-            height: 70vh;
+            height: 80vh;
+            border: 1px solid rgb(11, 17, 46);
+            display: inline-block;
+        }
+
+        .custom-content-container {
+            width: 100%;
+            height: 20vh;
             border: 1px solid rgb(11, 17, 46);
             display: inline-block;
         }
@@ -34,6 +41,7 @@
             align-items: center;
             justify-content: center;
         }
+
     </style>
 
 
@@ -41,25 +49,20 @@
 
 <body>
 
-    <div class="container p-3 my-3 border">
-        <div id="map"></div>
-    </div>
+    <div id="map"></div>
     <div class="container">
-        <div class="form-group">
-            <textarea class="form-control" rows="3" id="info" onchange="getInput()"
-                placeholder="Say something..."></textarea>
-        </div>
-        <div class="button-wrapper">
-            <input type="button" class="btn btn-success" onclick="send()" value="SAVE">
-        </div>
-        <a href="/report" type="button">form</a>
-        <a href="/about" type="button">sobre</a>
-        
+    </br>
+    <div class="button-wrapper">
+        <a type="button" class="btn btn-success" href="/report" value="reportar">reportar animal</a>
     </div>
+        
+    <a href="/about" type="button">sobre</a>
+        
+
     
 
 </body>
 
-<!-- <script type="text/javascript" src="javascripts/index.js"></script> -->
+<script type="module" defer src="javascripts/main.js"></script>
 
 </html>
