@@ -1,22 +1,24 @@
 // if (process.env.NODE_ENV !== 'production') {
 //  require('dotenv').config();
 // }
-require('dotenv').config();
+// require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const path = require('path');
+// const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
 const routes = require('./routes/index');
 
 
 const app = express();
 
-mongoose.connect(process.env.DATABASE_URL, {
-  useNewUrlParser: true, useUnifiedTopology: true,
-});
-const db = mongoose.connection;
-db.on('error', (err) => console.error(err));
-db.once('open', () => console.log('Connected to Database'));
+// mongoose.connect(process.env.DATABASE_URL, {
+//   useNewUrlParser: true, useUnifiedTopology: true,
+// });
+// const db = mongoose.connection;
+// db.on('error', (err) => console.error(err));
+// db.once('open', () => console.log('Connected to Database'));
 
 // set ejs as template
 app.set('view engine', 'ejs');
@@ -24,6 +26,10 @@ app.set('view engine', 'ejs');
 // set path to ejs files public files
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(bodyParser.json({ limit: '10mb', extended: true }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 
 // routes
 app.use(express.json());

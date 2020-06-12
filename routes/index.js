@@ -1,4 +1,8 @@
+/* eslint-disable no-console */
 const express = require('express');
+const formidable = require('formidable');
+
+const form = new formidable.IncomingForm();
 
 const router = express.Router();
 const fs = require('fs');
@@ -6,7 +10,6 @@ const fs = require('fs');
 const rawdata = fs.readFileSync('./resources/content.json');
 const resource = JSON.parse(rawdata);
 
-const DataSchema = require('../models/spatialModel');
 
 function buildGeoJson(parser, doc) {
   return {
@@ -59,9 +62,18 @@ router.get('/about', async (req, res) => {
   }
 });
 
+// router.get('/test', async (req, res) => {
+//   try {
+//     res.render('test');
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+
 router.get('/mapData', async (req, res) => {
   try {
-    const spatialData = await DataSchema.find();
+    const rawData = await fs.readFileSync('./resources/data.json');
+    const spatialData = await JSON.parse(rawData);
     console.log(spatialData);
     const geoJson = spatialData.map((doc) => buildGeoJson(layerParser, doc));
     res.json(geoJson);
@@ -70,18 +82,78 @@ router.get('/mapData', async (req, res) => {
   }
 });
 
+// async function Base64ToImage(file) {
+//   const binaryData = await fs.readFileSync(file);
+//   console.log(binaryData);
+//   // const base64String = new Buffer(binaryData).toString('base64');
+//   const base64String = await Buffer.from(binaryData).toString('base64');
+//   return base64String;
+// }
 
+// router.get('/getImage', async (req, res) => {
+//   //   var data = getIcon(req.params.w);
+//   //   var img = new Buffer(data, 'base64');
+
+//   //  res.writeHead(200, {
+//   //    'Content-Type': 'image/png',
+//   //    'Content-Length': img.length
+//   //  });
+//   //  res.end(img);
+//   try {
+//     const base64Image = await fs.readFileSync('./files-tmp/test.txt');
+//     // const spatialData = await JSON.parse(rawData);
+//     console.log(base64Image);
+//     res.send(base64Image);
+//     res.base64
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// });
+
+
+// async function ImageToBase64(file) {
+//   const binaryData = await fs.readFileSync(file);
+//   console.log(binaryData);
+//   // const base64String = new Buffer(binaryData).toString('base64');
+//   const base64String = await Buffer.from(binaryData).toString('base64');
+//   return base64String;
+// }
+
+// router.post('/post', upload.single('imageInput'), async (req, res) => {
 router.post('/post', async (req, res) => {
-  console.log(req);
-  const obj = new DataSchema({
-    info: req.body.info,
-    coords: req.body.coords,
-    type: req.body.type,
-  });
-  console.log(obj);
   try {
-    // await obj.save();
-    res.status(201).json(obj);
+    form.parse(req, async (err, fields, files) => {
+      const obj = { ...fields };
+      console.log('fields obj', obj);
+      console.log(files);
+
+      // const oldpath = files.imageInput.path;
+      // const newpath = `${'./files-tmp'}/${files.imageInput.name}`;
+
+      // console.log(oldpath);
+      // console.log(newpath);
+      // fs.renameSync(oldpath, newpath);
+
+      // const base64 = await ImageToBase64(newpath);
+      // console.log(base64);
+
+      // fs.appendFile('./files-tmp/test.txt', 'test', (error) => {
+      //   if (error) throw error;
+      //   console.log('Saved!');
+      // });
+
+      // fs.writeFileSync('./files-tmp/test.txt', base64, (error) => {
+      //   if (error) console.log(error);
+      // });
+
+      // const y = Buffer.from().toString('base64');
+      // console.log(y);
+      // res.write('File uploaded');
+      // res.end();
+    });
+
+
+    res.status(201).json({ message: 'ok' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

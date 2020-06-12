@@ -19,27 +19,19 @@ map.on(L.Draw.Event.CREATED, (event) => {
 
 theForm.onsubmit = async (e) => {
   e.preventDefault();
-  const x = new FormData(theForm);
 
-  const obj = {
-    type: x.get('typeInput'),
-    description: x.get('description'),
-    image: x.get('imageInput'),
-    date: new Date(),
-    location: latlng,
-  };
-  console.log('obj', obj);
+  const formObjt = new FormData(theForm);
 
+  await formObjt.append('location', JSON.stringify(latlng));
 
-  // const response = await fetch('/post', {
-  //   method: 'POST',
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  //   body: JSON.stringify(obj),
-  // });
+  formObjt.forEach((value, key) => console.log(`${key} => ${value}`));
 
-  // const result = await response.json();
+  const response = await fetch('/post', {
+    method: 'POST',
+    body: formObjt,
+  });
 
-  // console.log(result.message);
+  const result = await response.json();
+
+  console.log(result.message);
 };

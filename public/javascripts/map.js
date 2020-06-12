@@ -3,8 +3,10 @@ const initialZoom = 12;
 
 export const map = L.map('map').setView(initialCordinates, initialZoom);
 
-export const baseLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>',
+export const baseLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  subdomains: 'abcd',
+  maxZoom: 19,
 });
 
 export async function getData(callback) {
@@ -17,21 +19,6 @@ export async function getData(callback) {
   }
 }
 
-// getData((geoData) => {
-//   L.geoJSON(geoData, {
-
-//     onEachFeature: (feature, layer) => {
-//       if (feature.properties && feature.properties.popupContent) {
-//         layer.bindPopup(feature.properties.popupContent);
-//       }
-//     },
-
-//   }).addTo(map);
-// });
-
-
-// const drawnItems = new L.FeatureGroup();
-// map.addLayer(drawnItems);
 
 export const drawControl = new L.Control.Draw({
   draw: {
@@ -43,23 +30,3 @@ export const drawControl = new L.Control.Draw({
     circlemarker: false,
   },
 });
-
-// map.addControl(drawControl);
-
-
-// map.on(L.Draw.Event.CREATED, (event) => {
-//   const { layer, layerType } = event;
-
-//   if (layerType === 'polygon') {
-//     obj.type = layerType;
-//     obj.coords = layer._latlngs.flat();
-//   } else {
-//     obj.type = layerType;
-//     obj.coords = layer._latlng;
-//   }
-
-//   submittCondition.feature = true;
-//   console.log(submittCondition);
-//   map.addLayer(layer);
-// });
-
