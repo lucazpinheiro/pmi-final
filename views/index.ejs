@@ -2,7 +2,7 @@
 <html lang="pt-br">
 
 <head>
-    <title><%= content.title %><</title>
+    <title><%= content.title %></title>
     <meta charset="utf-8">
 
     <!--leaflet-->
@@ -44,8 +44,6 @@
             height: 20vh;
         }
 
-
-
         
 
     </style>
@@ -58,16 +56,26 @@
     <div class="map-container">
         <div id="map"></div>
     </div>
-    <div class="container">
-    <!-- <div class="custom-container"> -->
-
-        <div class="button-wrapper">
-            <a type="button" class="btn btn-success" href="/report" value="reportar">reportar animal</a>
+    <divc class="custom-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-sm" style="background-color: yellow;">
+                    <p><%= content.tutorial %></p>
+                </div>
+                <div class="col align-self-center" style="background-color: brown;">
+                    <div class="button-wrapper">
+                        <a type="button" class="btn btn-success" href="/report" value="report">reportar animal</a>
+                    </div>
+                </div>
+                <div class="col align-self-center" style="background-color: black;">
+                    <div class="button-wrapper">
+                        <a type="button" class="btn btn-info" href="/about" value="about"><%= content.aboutButton %></a> 
+                    </div>
+                </div>
+            </div> 
         </div>
-            
-        <a href="/about" type="button">sobre</a>
-
     </div>
+    
     
 
 </body>
