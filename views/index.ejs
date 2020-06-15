@@ -21,26 +21,32 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <style>
+
+        body {
+            overflow:hidden;
+            margin: 0;
+        }
+
         #map {
             width: 100%;
+            height: 100%;
+        }
+
+        .map-container {
+            width: 100%;
             height: 80vh;
-            border: 1px solid rgb(11, 17, 46);
+            border-bottom: 1px solid rgb(11, 17, 46);
             display: inline-block;
         }
 
-        .custom-content-container {
+        .custom-container {
             width: 100%;
             height: 20vh;
-            /* border: 1px solid rgb(11, 17, 46); */
-            display: inline-block;
         }
 
-        .button-wrapper {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+
+
+        
 
     </style>
 
@@ -49,16 +55,19 @@
 
 <body>
 
-    <div id="map"></div>
-    <div class="container">
-    </br>
-    <div class="button-wrapper">
-        <a type="button" class="btn btn-success" href="/report" value="reportar">reportar animal</a>
+    <div class="map-container">
+        <div id="map"></div>
     </div>
-        
-    <a href="/about" type="button">sobre</a>
-        
+    <div class="container">
+    <!-- <div class="custom-container"> -->
 
+        <div class="button-wrapper">
+            <a type="button" class="btn btn-success" href="/report" value="reportar">reportar animal</a>
+        </div>
+            
+        <a href="/about" type="button">sobre</a>
+
+    </div>
     
 
 </body>
