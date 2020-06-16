@@ -13,6 +13,7 @@ export async function getData(callback) {
   try {
     const response = await fetch('/mapData');
     const geoData = await response.json();
+    console.log(geoData);
     callback(geoData);
   } catch (err) {
     console.log(err);

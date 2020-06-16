@@ -7,36 +7,71 @@ const form = new formidable.IncomingForm();
 const router = express.Router();
 const fs = require('fs');
 
+const controller = require('../controller/index');
+
 const rawdata = fs.readFileSync('./resources/content.json');
 const resource = JSON.parse(rawdata);
 
 
-function buildGeoJson(parser, doc) {
+// function buildGeoJson(parser, doc) {
+//   return {
+//     type: 'Feature',
+//     properties: {
+//       popupContent: doc.info,
+//     },
+//     geometry: parser(doc.coords, doc.type),
+
+//   };
+// }
+
+
+// function layerParser(coords, featureType) {
+//   const geometry = {};
+//   if (featureType === 'polygon') {
+//     const coordsArr = coords.flat().map((point) => [point.lng, point.lat]);
+//     coordsArr.push(coordsArr[0]);
+//     geometry.coordinates = [[...coordsArr]];
+//     geometry.type = 'Polygon';
+//   } else {
+//     geometry.coordinates = [coords.lng, coords.lat];
+//     geometry.type = 'Point';
+//   }
+//   return geometry;
+// }
+
+
+function buildGeoJson(doc) {
   return {
     type: 'Feature',
     properties: {
-      popupContent: doc.info,
+      description: doc.description,
+      date: doc.date,
+      type: doc.species,
+      status: doc.status,
+      image: doc.image,
+      id: doc.id,
     },
-    geometry: parser(doc.coords, doc.type),
-
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        doc.lng,
+        doc.lat,
+      ],
+    },
   };
 }
 
 
-function layerParser(coords, featureType) {
-  const geometry = {};
-  if (featureType === 'polygon') {
-    const coordsArr = coords.flat().map((point) => [point.lng, point.lat]);
-    coordsArr.push(coordsArr[0]);
-    geometry.coordinates = [[...coordsArr]];
-    geometry.type = 'Polygon';
-  } else {
-    geometry.coordinates = [coords.lng, coords.lat];
-    geometry.type = 'Point';
+router.get('/testAxios', async (req, res) => {
+  const url = 'http://localhost:8080/animals';
+  try {
+    // await getData(url);
+    const data = await controller.getData(url);
+    res.json(data);
+  } catch (err) {
+    res.send(err.message);
   }
-  return geometry;
-}
-
+});
 
 router.get('/', async (req, res) => {
   try {
@@ -62,20 +97,17 @@ router.get('/about', async (req, res) => {
   }
 });
 
-// router.get('/test', async (req, res) => {
-//   try {
-//     res.render('test');
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
 
 router.get('/mapData', async (req, res) => {
   try {
-    const rawData = await fs.readFileSync('./resources/data.json');
-    const spatialData = await JSON.parse(rawData);
-    console.log(spatialData);
-    const geoJson = spatialData.map((doc) => buildGeoJson(layerParser, doc));
+    const url = 'http://localhost:8080/animals';
+    const data = await controller.getData(url);
+    // const rawData = await fs.readFileSync('./resources/data.json');
+    // const spatialData = await JSON.parse(rawData);
+    // console.log(data);
+    // console.log(spatialData);
+    // const geoJson = spatialData.map((doc) => buildGeoJson(layerParser, doc));
+    const geoJson = data.map((doc) => buildGeoJson(doc));
     res.json(geoJson);
   } catch (err) {
     res.status(500).json({ message: err.message });
