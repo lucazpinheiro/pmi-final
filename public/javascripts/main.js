@@ -15,7 +15,6 @@ getData((geoData) => {
 
     onEachFeature: (feature, layer) => {
       if (feature.properties) {
-        // layer.bindPopup(feature.properties.popupContent);
         layer.bindPopup(parseProperties(feature.properties));
       }
     },

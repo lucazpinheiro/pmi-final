@@ -57,8 +57,6 @@ async function getData(url) {
   try {
     const rawResponse = await axios.get(url);
     const data = await rawResponse.data;
-    // console.log(data);
-    // return data;
     return auxData;
   } catch (err) {
     console.log(err);

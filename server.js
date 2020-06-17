@@ -36,9 +36,12 @@ app.use(express.json());
 app.use(routes);
 
 // error handler
-app.use((req, res, next) => {
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  // res.status(404).send("Can't connect");
   next(createError(404));
 });
+
 
 app.use((err, req, res) => {
   res.locals.message = err.message;
