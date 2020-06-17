@@ -3,12 +3,21 @@
 <html lang="pt-br">
 
 <head>
-  <title><%= content.title %></title>
-  <meta charset="utf-8">
+    <title><%= content.title %></title>
+    <meta charset="utf-8">
+
+    <!--bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
 
 <body>
-    <h1><%= content.page %></h1>
+    <div class="container">
+        <h1><%= content.page %></h1>
+        <a href="/" type="button">principal</a>
+        <a href="/report" type="button">reportar</a>
+    </div>
 </body>
 
 </html>
