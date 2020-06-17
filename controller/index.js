@@ -13,7 +13,7 @@ const auxData = [
     status: 'LOST',
     image: null,
     changeDate: '2020-06-16T15:53:47.942605',
-    inclusionDate: '2020-06-16T15:53:47.942605'
+    inclusionDate: '2020-06-16T15:53:47.942605',
   },
   {
     date: '2020-06-16T18:03:08.683',
@@ -25,7 +25,7 @@ const auxData = [
     status: 'LOST',
     image: null,
     changeDate: '2020-06-16T15:59:59.845805',
-    inclusionDate: '2020-06-16T15:59:59.845805'
+    inclusionDate: '2020-06-16T15:59:59.845805',
   },
   {
     date: '2020-06-16T18:03:08.683',
@@ -37,7 +37,7 @@ const auxData = [
     status: 'LOST',
     image: null,
     changeDate: '2020-06-16T16:03:03.650852',
-    inclusionDate: '2020-06-16T16:03:03.650852'
+    inclusionDate: '2020-06-16T16:03:03.650852',
   },
   {
     date: '2020-06-16T18:03:08.683',
@@ -49,8 +49,8 @@ const auxData = [
     status: 'LOST',
     image: null,
     changeDate: '2020-06-16T16:12:59.758802',
-    inclusionDate: '2020-06-16T16:12:59.758802'
-  }
+    inclusionDate: '2020-06-16T16:12:59.758802',
+  },
 ];
 
 async function getData(url) {

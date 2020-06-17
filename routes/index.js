@@ -151,14 +151,40 @@ router.get('/mapData', async (req, res) => {
 //   return base64String;
 // }
 
-// router.post('/post', upload.single('imageInput'), async (req, res) => {
+// {
+//   "date": "2020-06-17T19:11:48.958Z",
+//   "description": "string",
+//   "id": 0,
+//   "image": "string",
+//   "location": {
+//     "lat": 0,
+//     "lng": 0
+//   },
+//   "species": "CAT",
+//   "status": "LOST"
+// }
+
+function parseRequest(obj) {
+  const latlng = JSON.parse(obj.location);
+  const postRequestBody = {
+    description: obj.description,
+    location: { ...latlng },
+    species: obj.typeInput,
+    status: obj.statusInput,
+  };
+  return postRequestBody;
+}
+
 router.post('/post', async (req, res) => {
   try {
     form.parse(req, async (err, fields, files) => {
-      const obj = { ...fields };
-      console.log('fields obj', obj);
+      console.log(fields);
+      const obj = parseRequest({ ...fields });
+      console.log(obj);
       console.log(files);
-
+      const url = 'http://localhost:8080/animals';
+      const response = await controller.postData(url, obj);
+      console.log(response);
       // const oldpath = files.imageInput.path;
       // const newpath = `${'./files-tmp'}/${files.imageInput.name}`;
 
@@ -183,9 +209,8 @@ router.post('/post', async (req, res) => {
       // res.write('File uploaded');
       // res.end();
     });
-
-
-    res.status(201).json({ message: 'ok' });
+    // res.status(201).json({ message: 'ok' }).redirect('/');
+    res.redirect('/');
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

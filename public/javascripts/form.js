@@ -17,21 +17,17 @@ map.on(L.Draw.Event.CREATED, (event) => {
 });
 
 
-theForm.onsubmit = async (e) => {
+reportForm.onsubmit = async (e) => {
   e.preventDefault();
 
-  const formObjt = new FormData(theForm);
-
+  const formObjt = new FormData(reportForm);
   await formObjt.append('location', JSON.stringify(latlng));
-
   formObjt.forEach((value, key) => console.log(`${key} => ${value}`));
-
-  const response = await fetch('/post', {
+  // e.default();
+  await fetch('/post', {
     method: 'POST',
     body: formObjt,
   });
 
-  const result = await response.json();
-
-  console.log(result.message);
+  window.location.href = '/';
 };

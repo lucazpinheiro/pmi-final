@@ -47,19 +47,19 @@
         <div id="map"></div>
     </div>
     <div class="container">
-        <form id="theForm" enctype="multipart/form-data">
+        <form id="reportForm" action="/post" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="statusInput">
                     <%= content.statusInput.label %>
                 </label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="statusInput" id="statusInputMissing" value="missing">
+                    <input class="form-check-input" type="radio" name="statusInput" id="statusInputMissing" value="LOST">
                     <label class="form-check-label" for="statusInputMissing">
                         <%= content.statusInput.statusInputMissing %>
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="statusInput" id="statusInputReported" value="reported">
+                    <input class="form-check-input" type="radio" name="statusInput" id="statusInputReported" value="FOUND">
                     <label class="form-check-label" for="statusInputReported">
                         <%= content.statusInput.statusInputReported %>
                     </label>
@@ -71,15 +71,21 @@
                     <%= content.typeInput.label %>
                 </label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="typeInput" id="typeInputDog" value="dog">
+                    <input class="form-check-input" type="radio" name="typeInput" id="typeInputDog" value="DOG">
                     <label class="form-check-label" for="typeInputDog">
                         <%= content.typeInput.typeInputDog %>
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="typeInput" id="typeInputCat" value="gato">
+                    <input class="form-check-input" type="radio" name="typeInput" id="typeInputCat" value="CAT">
                     <label class="form-check-label" for="typeInputCat">
                         <%= content.typeInput.typeInputCat %>
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="typeInput" id="typeInputOther" value="OTHER">
+                    <label class="form-check-label" for="typeInputOther">
+                        <%= content.typeInput.typeInputOther %>
                     </label>
                 </div>
             </div>
