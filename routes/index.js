@@ -75,7 +75,7 @@ router.get('/testAxios', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    res.render('index', { content: resource.index });
+    res.render('index', { content: resource.main });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

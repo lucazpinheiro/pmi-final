@@ -1,7 +1,7 @@
 // if (process.env.NODE_ENV !== 'production') {
 //  require('dotenv').config();
 // }
-// require('dotenv').config();
+require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
 // const mongoose = require('mongoose');
@@ -43,7 +43,7 @@ app.use((err, req, res, next) => {
 });
 
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 

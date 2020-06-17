@@ -1,16 +1,39 @@
 {
-    "index": {
+    "main": {
         "title": "GEOPET (nome provisorio)",
         "tutorial": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac",
-        "aboutButton": "sobre"
+        "aboutButton": "Saiba mais",
+        "reportButton": "Reportar animal"
     },
     "form": {
         "title": "GEOPET (nome provisorio)",
-        "page": "form"
+        "page": "Formulário",
+        "statusInput": {
+            "label": "Situação do animal",
+            "statusInputMissing": "Meu pet se perdeu/fugiu",
+            "statusInputReported": "Encontrei um animal que parece estar abandonado"
+        },
+        "typeInput": {
+            "label": "Especie do animal",
+            "typeInputDog": "Cachorro",
+            "typeInputCat": "Gato",
+            "typeInputOther": "Outro"
+        },
+        "descriptionInput": {
+            "label": "Informações adicionais",
+            "placeholder": "Ex: encontrei um viralata caramelo, ele tem uma coleira e parece que não faz muito tempo que tomou banho."
+        },
+        "fileInput": "Adicione uma foto do animal",
+        "submitButton": "Salvar registro",
+        "returnButton": "Retornar"
     },
     "about": {
         "title": "GEOPET (nome provisorio)",
-        "page": "about",
-        "content": "" 
+        "page": "Sobre o projeto",
+        "text": {
+            "first": " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at sollicitudin arcu. Morbi neque mauris, facilisis at posuere nec, euismod eget velit. Mauris aliquam malesuada nulla, id lacinia diam porta ac. Nullam pellentesque est sit amet erat volutpat posuere. Duis malesuada elit eu nunc dapibus, sit amet imperdiet tortor posuere. Nunc efficitur, nibh a sollicitudin imperdiet, mauris lectus venenatis metus, sed vestibulum mi leo quis sapien. Vestibulum laoreet enim et nulla interdum eleifend. Nulla ac mollis dolor. Aliquam erat volutpat. Morbi placerat sem ac eleifend rhoncus.",
+            "second": " Nam odio ipsum, fringilla sed semper at, pretium ac ante. Praesent placerat, tellus vel vestibulum lacinia, felis metus ullamcorper dolor, ac hendrerit magna sapien a massa. Vestibulum nec varius risus. Nam malesuada et libero et dapibus. Morbi sit amet ante et quam malesuada egestas quis mollis ante. In consectetur magna eu vestibulum tempor. Maecenas eu ornare erat, vel consectetur nisi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer neque risus, tempus a massa a, interdum euismod nibh. Ut facilisis eros sit amet tortor ultrices, ac efficitur sapien rutrum.",
+            "three": "Mauris suscipit mauris metus, non molestie urna porta ac. Aliquam vulputate lobortis dui eget pellentesque. Pellentesque neque lorem, tempus a vulputate a, vestibulum non mauris. Suspendisse nulla ipsum, tempus quis tellus a, iaculis fermentum nunc. Ut convallis metus vel odio sagittis interdum. Vivamus magna risus, sollicitudin sed tortor eu, aliquam facilisis arcu. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Duis laoreet leo sed vehicula iaculis. Aliquam erat volutpat. Aenean quis luctus lectus. Integer non ultricies metus, at pretium turpis. Nullam tempus lorem sed ex consequat bibendum. Ut blandit ligula eget lorem ultrices bibendum. Fusce egestas lobortis elit, eu porttitor nibh efficitur eu."
+        }
     }
 }
