@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 import { map, baseLayer, getData } from './map.js';
 
 baseLayer.addTo(map);

@@ -1,3 +1,4 @@
+/* eslint-disable import/extensions */
 /* eslint-disable no-undef */
 
 import { map, baseLayer, drawControl } from './map.js';
@@ -23,11 +24,16 @@ reportForm.onsubmit = async (e) => {
   const formObjt = new FormData(reportForm);
   await formObjt.append('location', JSON.stringify(latlng));
   formObjt.forEach((value, key) => console.log(`${key} => ${value}`));
-  // e.default();
-  await fetch('/post', {
+
+  const response = await fetch('/post', {
     method: 'POST',
     body: formObjt,
   });
 
-  window.location.href = '/';
+  if (response.status === 201) {
+    window.location.href = '/';
+  } else {
+    alert('Parece houve algum problema ao salvar o registro, por favor tente mais tarde.');
+    window.location.href = '/report';
+  }
 };

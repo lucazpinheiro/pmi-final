@@ -185,6 +185,8 @@ router.post('/post', async (req, res) => {
       const url = 'http://localhost:8080/animals';
       const response = await controller.postData(url, obj);
       console.log(response);
+
+
       // const oldpath = files.imageInput.path;
       // const newpath = `${'./files-tmp'}/${files.imageInput.name}`;
 
@@ -209,8 +211,8 @@ router.post('/post', async (req, res) => {
       // res.write('File uploaded');
       // res.end();
     });
-    // res.status(201).json({ message: 'ok' }).redirect('/');
-    res.redirect('/');
+    res.status(201).json({ message: 'ok' });
+    // res.redirect('/');
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
