@@ -13,22 +13,13 @@ const routes = require('./routes/index');
 
 const app = express();
 
-// mongoose.connect(process.env.DATABASE_URL, {
-//   useNewUrlParser: true, useUnifiedTopology: true,
-// });
-// const db = mongoose.connection;
-// db.on('error', (err) => console.error(err));
-// db.once('open', () => console.log('Connected to Database'));
-
 // set ejs as template
 app.set('view engine', 'ejs');
 
 // set path to ejs files public files
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(express.static(path.join(__dirname, 'uploaded-images')));
-// app.use(express.static('uploaded-images'));
-// app.use(express.static('files'));
+
 
 
 app.use(bodyParser.json({ limit: '10mb', extended: true }));
@@ -41,7 +32,6 @@ app.use(routes);
 // error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  // res.status(404).send("Can't connect");
   next(createError(404));
 });
 

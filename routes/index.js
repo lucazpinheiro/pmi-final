@@ -73,17 +73,6 @@ router.get('/mapData', async (req, res) => {
 });
 
 
-router.get('/image/:imageId', async (req, res) => {
-  const fileName = req.params.imageId;
-  console.log(fileName);
-  try {
-    res.sendFile(path.join(__dirname, '../uploaded-images', fileName));
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-});
-
-
 function parseRequest(obj) {
   const latlng = JSON.parse(obj.location);
   const postRequestBody = {
@@ -96,11 +85,6 @@ function parseRequest(obj) {
   return postRequestBody;
 }
 
-function generateFileID(fileName, fileType, status, type) {
-  const name = fileName.replace(/[\. ,:-]+/g, '-');
-  return `${name}-${status}${type}.${fileType}`;
-}
-
 router.post('/post', async (req, res) => {
   try {
     form.parse(req, async (err, fields, files) => {
@@ -108,17 +92,6 @@ router.post('/post', async (req, res) => {
       const url = 'http://localhost:8080/animals';
       const response = await controller.postData(url, obj);
       console.log(response);
-
-      if (files.length !== 0) {
-        const fileName = files.imageInput.name.split('.');
-        const fileType = files.imageInput.type.split('/');
-        const imageId = generateFileID(fileName[0], fileType[1], fields.statusInput, fields.typeInput);
-
-
-        const tempPath = files.imageInput.path;
-        const newpath = `${'./uploaded-images'}/${imageId}`;
-        fs.renameSync(tempPath, newpath);
-      }
     });
     res.status(201).json({ message: 'ok' });
   } catch (err) {

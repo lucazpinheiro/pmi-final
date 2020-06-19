@@ -28,9 +28,11 @@ function buildPopup(params) {
   // <h6>Informações adicionais:</h6><big>${params.description}</big>
   // `;
   const content = `
-  <big><b>Espécie:</b> ${params.type}</big><br>
-  <big><b>Situação do animal:</b> ${params.status}</big><br>
-  <big><b>Informações adicionais:</b> ${params.description}</big>
+  <div style="overflow-wrap: break-word;"> 
+    <big><b>Espécie:</b> ${params.type}</big><br>
+    <big><b>Situação do animal:</b> ${params.status}</big><br>
+    <big><b>Informações adicionais:</b> ${params.description}</big>
+  </div>
   `;
   return content;
 }
