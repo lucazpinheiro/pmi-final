@@ -17,23 +17,40 @@ map.on(L.Draw.Event.CREATED, (event) => {
   map.addLayer(layer);
 });
 
+function isEmpty(obj) {
+  for(const key in obj) {
+      if(obj.hasOwnProperty(key))
+          return false;
+  }
+  return true;
+}
 
 reportForm.onsubmit = async (e) => {
   e.preventDefault();
 
-  const formObjt = new FormData(reportForm);
-  await formObjt.append('location', JSON.stringify(latlng));
-  formObjt.forEach((value, key) => console.log(`${key} => ${value}`));
 
-  const response = await fetch('/post', {
-    method: 'POST',
-    body: formObjt,
-  });
+  try {
+    if (isEmpty(latlng)) throw new Error('Por favor, insira um ponto no mapa antes de tentar salvar o registro.');
 
-  if (response.status === 201) {
-    window.location.href = '/';
-  } else {
-    alert('Parece houve algum problema ao salvar o registro, por favor tente mais tarde.');
+    const formObjt = new FormData(reportForm);
+    await formObjt.append('location', JSON.stringify(latlng));
+    formObjt.forEach((value, key) => console.log(`${key} => ${value}`));
+
+    const response = await fetch('/post', {
+      method: 'POST',
+      body: formObjt,
+    });
+
+    if (response.status === 201) {
+      alert('Registro salvo com sucesso');
+      window.location.href = '/';
+    } else {
+      throw new Error('Parece que houve algum problema ao salvar o registro, por favor tente novamente.');
+    }
+  } catch (err) {
+    alert(err);
     window.location.href = '/report';
   }
+
+
 };
