@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const express = require('express');
 const formidable = require('formidable');
+const path = require('path');
 
 const form = new formidable.IncomingForm();
 
@@ -72,21 +73,15 @@ router.get('/mapData', async (req, res) => {
 });
 
 
-// async function Base64ToImage(file) {
-//   const binaryData = await fs.readFileSync(file);
-//   console.log(binaryData);
-//   // const base64String = new Buffer(binaryData).toString('base64');
-//   const base64String = await Buffer.from(binaryData).toString('base64');
-//   return base64String;
-// }
-
-// async function ImageToBase64(file) {
-//   const binaryData = await fs.readFileSync(file);
-//   console.log(binaryData);
-//   // const base64String = new Buffer(binaryData).toString('base64');
-//   const base64String = await Buffer.from(binaryData).toString('base64');
-//   return base64String;
-// }
+router.get('/image/:imageId', async (req, res) => {
+  const fileName = req.params.imageId;
+  console.log(fileName);
+  try {
+    res.sendFile(path.join(__dirname, '../uploaded-images', fileName));
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 
 function parseRequest(obj) {
@@ -101,41 +96,29 @@ function parseRequest(obj) {
   return postRequestBody;
 }
 
+function generateFileID(fileName, fileType, status, type) {
+  const name = fileName.replace(/[\. ,:-]+/g, '-');
+  return `${name}-${status}${type}.${fileType}`;
+}
+
 router.post('/post', async (req, res) => {
   try {
     form.parse(req, async (err, fields, files) => {
-      console.log(fields);
       const obj = parseRequest({ ...fields });
-      console.log(obj);
-      console.log(files);
       const url = 'http://localhost:8080/animals';
       const response = await controller.postData(url, obj);
       console.log(response);
 
+      if (files.length !== 0) {
+        const fileName = files.imageInput.name.split('.');
+        const fileType = files.imageInput.type.split('/');
+        const imageId = generateFileID(fileName[0], fileType[1], fields.statusInput, fields.typeInput);
 
-      // const oldpath = files.imageInput.path;
-      // const newpath = `${'./files-tmp'}/${files.imageInput.name}`;
 
-      // console.log(oldpath);
-      // console.log(newpath);
-      // fs.renameSync(oldpath, newpath);
-
-      // const base64 = await ImageToBase64(newpath);
-      // console.log(base64);
-
-      // fs.appendFile('./files-tmp/test.txt', 'test', (error) => {
-      //   if (error) throw error;
-      //   console.log('Saved!');
-      // });
-
-      // fs.writeFileSync('./files-tmp/test.txt', base64, (error) => {
-      //   if (error) console.log(error);
-      // });
-
-      // const y = Buffer.from().toString('base64');
-      // console.log(y);
-      // res.write('File uploaded');
-      // res.end();
+        const tempPath = files.imageInput.path;
+        const newpath = `${'./uploaded-images'}/${imageId}`;
+        fs.renameSync(tempPath, newpath);
+      }
     });
     res.status(201).json({ message: 'ok' });
   } catch (err) {

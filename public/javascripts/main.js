@@ -22,10 +22,15 @@ function parseProperties(props) {
 }
 
 function buildPopup(params) {
+  // const content = `
+  // <h6>Espécie: </h6><big>${params.type}</big>
+  // <h6>Situação do animal: </h6><big>${params.status}</big>
+  // <h6>Informações adicionais:</h6><big>${params.description}</big>
+  // `;
   const content = `
-  <h5>Espécie: </h5><big>${params.type}</big>
-  <h5>Situação do animal: </h5><big>${params.status}</big>
-  <h5>Informações adicionais:</h5><big>${params.description}</big>
+  <big><b>Espécie:</b> ${params.type}</big><br>
+  <big><b>Situação do animal:</b> ${params.status}</big><br>
+  <big><b>Informações adicionais:</b> ${params.description}</big>
   `;
   return content;
 }

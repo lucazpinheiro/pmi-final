@@ -26,6 +26,9 @@ app.set('view engine', 'ejs');
 // set path to ejs files public files
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'uploaded-images')));
+// app.use(express.static('uploaded-images'));
+// app.use(express.static('files'));
 
 
 app.use(bodyParser.json({ limit: '10mb', extended: true }));
