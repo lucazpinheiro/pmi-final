@@ -13,28 +13,6 @@ const rawdata = fs.readFileSync('./resources/content.json');
 const resource = JSON.parse(rawdata);
 
 
-function buildGeoJson(doc) {
-  return {
-    type: 'Feature',
-    properties: {
-      description: doc.description,
-      date: doc.date,
-      type: doc.species,
-      status: doc.status,
-      image: doc.image,
-      id: doc.id,
-    },
-    geometry: {
-      type: 'Point',
-      coordinates: [
-        doc.lng,
-        doc.lat,
-      ],
-    },
-  };
-}
-
-
 router.get('/', async (req, res) => {
   try {
     res.render('index', { content: resource.main });
@@ -60,6 +38,27 @@ router.get('/about', async (req, res) => {
 });
 
 
+function buildGeoJson(doc) {
+  return {
+    type: 'Feature',
+    properties: {
+      description: doc.description,
+      date: doc.inclusionDate,
+      type: doc.species,
+      status: doc.status,
+      image: doc.image,
+      id: doc.id,
+    },
+    geometry: {
+      type: 'Point',
+      coordinates: [
+        doc.lng,
+        doc.lat,
+      ],
+    },
+  };
+}
+
 router.get('/mapData', async (req, res) => {
   try {
     const url = 'http://localhost:8080/animals';
@@ -72,6 +71,7 @@ router.get('/mapData', async (req, res) => {
   }
 });
 
+
 // async function Base64ToImage(file) {
 //   const binaryData = await fs.readFileSync(file);
 //   console.log(binaryData);
@@ -79,27 +79,6 @@ router.get('/mapData', async (req, res) => {
 //   const base64String = await Buffer.from(binaryData).toString('base64');
 //   return base64String;
 // }
-
-// router.get('/getImage', async (req, res) => {
-//   //   var data = getIcon(req.params.w);
-//   //   var img = new Buffer(data, 'base64');
-
-//   //  res.writeHead(200, {
-//   //    'Content-Type': 'image/png',
-//   //    'Content-Length': img.length
-//   //  });
-//   //  res.end(img);
-//   try {
-//     const base64Image = await fs.readFileSync('./files-tmp/test.txt');
-//     // const spatialData = await JSON.parse(rawData);
-//     console.log(base64Image);
-//     res.send(base64Image);
-//     res.base64
-//   } catch (err) {
-//     res.status(500).json({ message: err.message });
-//   }
-// });
-
 
 // async function ImageToBase64(file) {
 //   const binaryData = await fs.readFileSync(file);
@@ -109,18 +88,6 @@ router.get('/mapData', async (req, res) => {
 //   return base64String;
 // }
 
-// {
-//   "date": "2020-06-17T19:11:48.958Z",
-//   "description": "string",
-//   "id": 0,
-//   "image": "string",
-//   "location": {
-//     "lat": 0,
-//     "lng": 0
-//   },
-//   "species": "CAT",
-//   "status": "LOST"
-// }
 
 function parseRequest(obj) {
   const latlng = JSON.parse(obj.location);
@@ -130,6 +97,7 @@ function parseRequest(obj) {
     species: obj.typeInput,
     status: obj.statusInput,
   };
+  console.log(postRequestBody);
   return postRequestBody;
 }
 

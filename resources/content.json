@@ -3,7 +3,12 @@
         "title": "GEOPET (nome provisorio)",
         "tutorial": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eget ligula eu lectus lobortis condimentum. Aliquam nonummy auctor massa. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nulla at risus. Quisque purus magna, auctor et, sagittis ac",
         "aboutButton": "Saiba mais",
-        "reportButton": "Reportar animal"
+        "reportButton": "Reportar animal",
+        "tutorial": {
+            "optionOne": "O mapa mostra os animais reportados por outros usuários",
+            "optionTwo": "Clique em 'Reportar animal' e preencha o formulário para reportar um animal abandonado ou desaparecido",
+            "optionThree": "Clique em 'Saiba mais' para conhecer mais sobre o projeto e os envolvidos."
+        }
     },
     "form": {
         "title": "GEOPET (nome provisorio)",
