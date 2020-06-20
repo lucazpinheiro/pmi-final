@@ -11,4 +11,18 @@ Como já foi dito, o usuário também tem a opção de inserir um registro no ma
 
 A ideia do projeto foi fornecer uma ferramenta que, ajude pessoas a encontrarem seus pets perdidos e facilitar pessoas engajadas na causa de cuidado com animais a levantar informações sobre animais de rua e/ou abandonados.
 
+## Como rodar o front-end:
 
+#### dependências: 
+
+NodesJS 12 instalado ou atual
+
+Crie um arquivo `.env` na raiz do projeto
+
+#### passos:
+
+1. clone o repositorio
+1. em um terminal, navegue até a raiz do repositorio
+1. rode o seguinte comando: `npm i` para instalar as dependencias do node
+1. para rodar o projeto com hot reload use o comando: `npm run dev`
+1. para rodar o projeto "em produção" use o comando: `npm start`
