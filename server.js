@@ -1,15 +1,9 @@
-// if (process.env.NODE_ENV !== 'production') {
-//  require('dotenv').config();
-// }
 require('dotenv').config();
 const createError = require('http-errors');
 const express = require('express');
-// const mongoose = require('mongoose');
 const path = require('path');
-// const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const routes = require('./routes/index');
-
 
 const app = express();
 
@@ -19,8 +13,6 @@ app.set('view engine', 'ejs');
 // set path to ejs files public files
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
-
-
 
 app.use(bodyParser.json({ limit: '10mb', extended: true }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
@@ -34,7 +26,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   next(createError(404));
 });
-
 
 app.use((err, req, res, next) => {
   res.locals.message = err.message;

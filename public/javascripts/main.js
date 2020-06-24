@@ -22,11 +22,6 @@ function parseProperties(props) {
 }
 
 function buildPopup(params) {
-  // const content = `
-  // <h6>Espécie: </h6><big>${params.type}</big>
-  // <h6>Situação do animal: </h6><big>${params.status}</big>
-  // <h6>Informações adicionais:</h6><big>${params.description}</big>
-  // `;
   const content = `
   <div style="overflow-wrap: break-word;"> 
     <big><b>Espécie:</b> ${params.type}</big><br>
